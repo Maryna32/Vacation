@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Відпустка</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <form action="" class="main-form">
+      <h1>Калькулятор відпустки</h1>
+      <div class="content">
+        <label for="data-start">Введіть дату початку відпустки: </label
+        ><input type="date" name="data-start" id="data-start" />
+        <label for="duration">Введіть тривалість відпустки: </label>
+        <input type="number" name="duration" id="duration" />
+        <label for="data-end">Введіть дату кінця відпустки: </label
+        ><input type="date" name="data-end" id="data-end" />
+      </div>
+
+      <button type="submit" onclick="calculateVacation()">Розрахувати</button>
+    </form>
+  </body>
+</html>
