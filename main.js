@@ -1,3 +1,3 @@
 function calculateVacation() {
-  let dataStart, dataEnd, duration;
+  let dateStart, dateEnd, duration;
 }
