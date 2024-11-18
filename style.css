@@ -1,6 +1,8 @@
 :root {
   --dark-color: rgba(5, 44, 44, 0.815);
   --light-color: rgba(240, 248, 255, 0.767);
+  --hover-color: rgba(5, 44, 44, 0.521);
+  --background-form-color: rgba(90, 206, 206, 0.815);
 }
 
 * {
@@ -26,7 +28,14 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: rgba(90, 206, 206, 0.815);
+  background-color: var(--background-form-color);
+}
+
+.holiday-form {
+  background-color: var(--background-form-color);
+  border-radius: 8px;
+  width: 700px;
+  padding: 20px;
 }
 h1 {
   font-size: 40px;
@@ -45,8 +54,12 @@ input {
   background-color: var(--light-color);
   width: 600px;
   height: 50px;
+  padding-left: 10px;
 }
 
+#date-holiday {
+  width: 600px;
+}
 .content {
   margin-left: 28px;
 }
@@ -66,5 +79,14 @@ button {
 button:hover {
   cursor: pointer;
   color: azure;
-  background-color: rgba(5, 44, 44, 0.521);
+  background-color: var(--hover-color);
+}
+
+a {
+  text-decoration: none;
+  color: var(--dark-color);
+}
+
+a:hover {
+  color: var(--hover-color);
 }
