@@ -38,10 +38,10 @@ function calculateVacation() {
   }
 
   //перевірка на припадання дати початку або кінця на неділю
-  if (!new Date(dateStart).getDay()) {
+  if (new Date(dateStart).getDay() === 0) {
     alert("Дата початку відпустки потрапляє на неділю!");
   }
-  if (!new Date(dateEnd).getDay()) {
+  if (new Date(dateEnd).getDay() === 0) {
     alert("Дата завершення відпустки потрапляє на неділю!");
   }
 
@@ -57,7 +57,22 @@ function calculateVacation() {
 
 function calculatedateStart(dateEnd, duration) {
   let calculatedDate = new Date(dateEnd);
-  calculatedDate.setDate(calculatedDate.getDate() - duration + 1);
+  let holidaysCount = 0;
+
+  while (duration > 0) {
+    const isHoliday = arrHolidays.some(
+      (holiday) =>
+        new Date(holiday.date).toDateString() === calculatedDate.toDateString()
+    );
+
+    if (!isHoliday) {
+      duration--;
+    } else {
+      holidaysCount++;
+    }
+    calculatedDate.setDate(calculatedDate.getDate() - 1);
+  }
+  calculatedDate.setDate(calculatedDate.getDate() + 1);
 
   let formattedDate = calculatedDate.toISOString().split("T")[0];
   document.getElementById("date-start").value = formattedDate;
@@ -66,7 +81,30 @@ function calculatedateStart(dateEnd, duration) {
 
 function calculatedateEnd(dateStart, duration) {
   let calculatedDate = new Date(dateStart);
-  calculatedDate.setDate(calculatedDate.getDate() + duration - 1);
+
+  while (duration > 0) {
+    const isHoliday = arrHolidays.some(
+      (holiday) =>
+        new Date(holiday.date).toDateString() === calculatedDate.toDateString()
+    );
+
+    if (!isHoliday) {
+      duration--;
+    }
+
+    if (duration > 0) {
+      calculatedDate.setDate(calculatedDate.getDate() + 1);
+    }
+  }
+
+  while (
+    arrHolidays.some(
+      (holiday) =>
+        new Date(holiday.date).toDateString() === calculatedDate.toDateString()
+    )
+  ) {
+    calculatedDate.setDate(calculatedDate.getDate() + 1);
+  }
 
   let formattedDate = calculatedDate.toISOString().split("T")[0];
   document.getElementById("date-end").value = formattedDate;
@@ -77,16 +115,18 @@ function calculateDuration(dateStart, dateEnd) {
   let start = new Date(dateStart);
   let end = new Date(dateEnd);
   let result = 0;
-  console.log(arrHolidays);
+
   for (
     let currentDate = new Date(start);
     currentDate <= end;
     currentDate.setDate(currentDate.getDate() + 1)
   ) {
+    const formattedCurrentDate = currentDate.toISOString().split("T")[0];
     if (
       !arrHolidays.some(
         (holiday) =>
-          new Date(holiday.date).toDateString() === currentDate.toDateString()
+          new Date(holiday.date).toISOString().split("T")[0] ===
+          formattedCurrentDate
       )
     ) {
       result++;
